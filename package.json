@@ -1,0 +1,26 @@
+{
+  "name": "opinions",
+  "description": "static git-powered comment module for node",
+  "tags": ["comment", "discussion", "blog", "forum"],
+  "version": "0.0.0",
+  "author": "Paul Vorbach <paul@vorb.de> (http://paul.vorba.ch/)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pvorb/node-opinions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pvorb/node-opinions/issues"
+  },
+  "main": "./opinions.js",
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT license",
+      "url": "http://vorb.de/license/mit.html"
+    }
+  ],
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
