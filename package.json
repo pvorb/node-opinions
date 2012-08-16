@@ -21,6 +21,11 @@
       "url": "http://vorb.de/license/mit.html"
     }
   ],
+  "dependencies": {
+    "async": "~ 0.1.22",
+    "git-wrapper": "~ 0.0.2",
+    "jsml": "~ 0.1.0"
+  },
   "devDependencies": {},
   "optionalDependencies": {}
 }
