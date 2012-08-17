@@ -71,7 +71,7 @@ var Opinions = module.exports = function Opinions(options) {
   });
 };
 
-opinions.prototype.addComment =
+Opinions.prototype.addComment =
     function addComment(forFile, comment, tasks, added) {
   'use strict';
 
