@@ -29,7 +29,7 @@ var Opinions = module.exports = function Opinions(options) {
 
     var toCommit = new Set();
 
-    // execute tasks
+    // execute tasks prior to committing
     async.forEach(tasks, function execute(task, callback) {
       'use strict';
       task(forFile, comment, function (err, changed) {
@@ -45,7 +45,7 @@ var Opinions = module.exports = function Opinions(options) {
       if (err)
         return release() && added(err);
 
-      // start committing the files
+      // add the files to the stage
       self.git.exec('add', toCommit.toArray(), function (err, out) {
         'use strict';
         if (err)
@@ -53,6 +53,7 @@ var Opinions = module.exports = function Opinions(options) {
 
         var msg = 'Add comment for\n\n'+forFile;
 
+        // start committing the files
         self.git.exec('commit', function (err, out) {
           'use strict';
           if (err)
