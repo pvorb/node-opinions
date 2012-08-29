@@ -20,10 +20,10 @@ var Opinions = module.exports = function Opinions(options) {
     var added   = args[3];
 
     if (typeof forFile != 'string')
-      return release() && added(new Error('forFile must be a String.'));
+      return release() || added(new Error('forFile must be a String.'));
     if (typeof added != 'function')
       return release()
-        && added(new Error('added must be a callback function.'));
+        || added(new Error('added must be a callback function.'));
 
     var path = forFile += '.comments';
 
@@ -32,7 +32,7 @@ var Opinions = module.exports = function Opinions(options) {
     // execute tasks prior to committing
     async.forEach(tasks, function execute(task, callback) {
       'use strict';
-      task(forFile, comment, function (err, changed) {
+      task(forFile, comment, options, function (err, changed) {
         'use strict';
         if (err)
           return callback(err);
@@ -43,21 +43,31 @@ var Opinions = module.exports = function Opinions(options) {
     }, function cb(err) {
       'use strict';
       if (err)
-        return release() && added(err);
+        return release() || added(err);
+
+      self.logger.debug('completed tasks');
 
       // add the files to the stage
       self.git.exec('add', toCommit.toArray(), function (err, out) {
         'use strict';
         if (err)
-          return release() && added(err);
+          return release() || added(err);
 
-        var msg = 'Add comment for\n\n'+forFile;
+        console.log(out);
+
+        self.logger.debug('staged files');
+
+        var msg = '"Add comment for\n\n' + forFile + '"';
 
         // start committing the files
-        self.git.exec('commit', function (err, out) {
+        self.git.exec('commit', { m: msg }, [], function (err, out) {
           'use strict';
           if (err)
-            return release() && added(err);
+            return release() || added(err);
+
+          console.log(out);
+
+          self.logger.debug('successful commit');
 
           release();
           added();
@@ -75,7 +85,7 @@ Opinions.prototype.addComment =
     function addComment(forFile, comment, tasks, added) {
   'use strict';
 
-  this.logger.info('init comment for file ', file);
+  this.logger.info('init comment for file ', forFile);
   // add the comment to the queue
   this.queue.add(arguments);
 };
