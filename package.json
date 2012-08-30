@@ -1,8 +1,13 @@
 {
   "name": "opinions",
   "description": "static git-powered comment module for node",
-  "tags": ["comment", "discussion", "blog", "forum"],
-  "version": "0.0.0",
+  "tags": [
+    "comment",
+    "discussion",
+    "blog",
+    "forum"
+  ],
+  "version": "0.0.1",
   "author": "Paul Vorbach <paul@vorb.de> (http://paul.vorba.ch/)",
   "repository": {
     "type": "git",
