@@ -53,8 +53,6 @@ var Opinions = module.exports = function Opinions(options) {
         if (err)
           return release() || added(err);
 
-        console.log(out);
-
         self.logger.debug('staged files');
 
         var msg = '"Add comment for\n\n' + forFile + '"';
@@ -64,8 +62,6 @@ var Opinions = module.exports = function Opinions(options) {
           'use strict';
           if (err)
             return release() || added(err);
-
-          console.log(out);
 
           self.logger.debug('successful commit');
 
@@ -77,6 +73,7 @@ var Opinions = module.exports = function Opinions(options) {
   });
 
   self.queue.on('empty', function () {
+    'use strict';
     self.logger.info('queue empty');
   });
 };
